@@ -97,14 +97,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-  csharp_rpc:
-    dependency: "direct main"
-    description:
-      name: csharp_rpc
-      sha256: "9bf424f9154b0142f02de5d05e40cecfaad745d07c305739c2c72a9ee7906190"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.7"
   dart_ipify:
     dependency: "direct main"
     description:
@@ -384,6 +376,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.4.1"
+  package_info_plus:
+    dependency: "direct main"
+    description:
+      name: package_info_plus
+      sha256: ceb027f6bc6a60674a233b4a90a7658af1aebdea833da0b5b53c1e9821a78c7b
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.2"
+  package_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: package_info_plus_platform_interface
+      sha256: "9bc8ba46813a4cc42c66ab781470711781940780fd8beddd0c3da62506d3a6c6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   path:
     dependency: "direct main"
     description:
@@ -488,6 +496,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
+  ping_discover_network_forked:
+    dependency: "direct main"
+    description:
+      name: ping_discover_network_forked
+      sha256: d3975c4f3fbaa388f78fb4037ad9c33059d8e2ec0e804ed45e05277d2451fe77
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   platform:
     dependency: transitive
     description:
@@ -669,14 +685,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.2"
-  uuid:
-    dependency: transitive
-    description:
-      name: uuid
-      sha256: "648e103079f7c64a36dc7d39369cabb358d377078a051d6ae2ad3aa539519313"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.7"
   vector_math:
     dependency: transitive
     description:

@@ -107,8 +107,7 @@ class _FileManagerState extends State<FileManager> with WidgetsBindingObserver {
           showHidden: true,
           directory: _directory,
           onItemTap: (String newDir) async {
-            final type = FileSystemEntity.typeSync(newDir, followLinks: true);
-            if (type == FileSystemEntityType.directory) {
+            if (newDir == "home" || FileSystemEntity.typeSync(newDir, followLinks: true) == FileSystemEntityType.directory) {
               _setPath(newDir);
             } else {
               await openPath(newDir);

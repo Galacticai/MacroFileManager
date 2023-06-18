@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:macro_file_manager/concept/cross/special_characters.dart';
+import 'package:macro_file_manager/models/cross/special_characters.dart';
 
 // ignore: constant_identifier_names
 enum KibiByteUnits { B, KiB, MiB, GiB, TiB, PiB, EiB, ZiB, YiB, RiB, QiB }

@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  package_info_plus: ^4.0.2
   path: ^1.8.3
   dynamic_color: ^1.6.5
   flutter_acrylic: ^1.1.2
@@ -56,7 +57,7 @@ dependencies:
   rsa_encrypt: ^2.0.0
   flutter_secure_storage: ^8.0.0
   pointycastle: ^3.7.3
-  csharp_rpc: ^0.0.7
+  ping_discover_network_forked: ^0.0.1
   #disk_space: ^0.2.1 # requires old version of gradle
   #storage_info: ^0.0.1 # requires old gradle version
   #open_app_file: ^4.0.1 # works but not really async

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:macro_file_manager/concept/cross/special_characters.dart';
+import 'package:macro_file_manager/models/cross/special_characters.dart';
 
 class TextMan {
   static String shortPath(String path, int keepStart, int keepEnd, {bool trailingSeparator = false, String pathSeparator = "detectOS"}) {

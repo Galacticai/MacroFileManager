@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:macro_file_manager/concept/file_system_entity_is_hidden.dart';
-import 'package:macro_file_manager/concept/windows/windows_cmd/attrib.dart';
+import 'package:macro_file_manager/models/file_system_entity_is_hidden.dart';
+import 'package:macro_file_manager/models/windows/windows_cmd/attrib.dart';
 import 'package:macro_file_manager/widgets/fileManager/content_list.dart';
 import 'package:macro_file_manager/widgets/fileManager/error_page.dart';
 import 'package:macro_file_manager/widgets/fileManager/path/home_list.dart';
@@ -82,8 +82,8 @@ class _PathListState extends State<PathList> {
           return PathListLoading(target: widget.directory);
         } else if (snapshot.hasError) {
           final isEmpty = snapshot.error == "empty";
-          return ErrorPage(
-            title: isEmpty ? "Nothing here..." : "Failed to load the specified path",
+          return PathInfo(
+            isEmpty ? "Nothing here..." : "Failed to load the specified path",
             details: isEmpty ? null : snapshot.error.toString(),
             icon: isEmpty ? FontAwesomeIcons.ghost : FontAwesomeIcons.triangleExclamation,
             color: isEmpty ? null : Theme.of(context).colorScheme.error,

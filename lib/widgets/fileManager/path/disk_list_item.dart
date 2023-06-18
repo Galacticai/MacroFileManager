@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:macro_file_manager/concept/cross/special_characters.dart';
-import 'package:macro_file_manager/concept/unix/known_storage_paths.dart';
-import 'package:macro_file_manager/concept/windows/windows_cmd/vol.dart';
+import 'package:macro_file_manager/models/cross/special_characters.dart';
+import 'package:macro_file_manager/models/unix/known_storage_paths.dart';
+import 'package:macro_file_manager/models/windows/windows_cmd/vol.dart';
 import 'package:macro_file_manager/widgets/cross/byte_convert.dart';
 import 'package:macro_file_manager/widgets/cross/global_props.dart';
 import 'package:macro_file_manager/widgets/fileManager/path/path_list.dart';
@@ -80,7 +80,7 @@ class _DiskItemState extends State<DiskItem> {
                     child: Text(
                       "${widget.disk.usedSpace.formatBytes(kibi: true, withUnit: false)} / ${totalSpace.formatKibiBytes}"
                       " —${SpecialCharacters.narrowNonBreakingSpace}${widget.disk.availableSpace.formatKibiBytes}"
-                      "${SpecialCharacters.narrowNonBreakingSpace}available",
+                      "${SpecialCharacters.narrowNonBreakingSpace}free",
                       style: subtitleStyle,
                     ),
                   ),

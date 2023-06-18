@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:macro_file_manager/concept/cross/text_man.dart';
+import 'package:macro_file_manager/models/cross/text_man.dart';
 import 'package:macro_file_manager/widgets/cross/global_props.dart';
 
 class PathListLoading extends StatelessWidget {

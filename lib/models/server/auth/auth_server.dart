@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:macro_file_manager/concept/Keys/Key.dart';
+import 'package:macro_file_manager/models/Keys/Key.dart';
+import 'package:macro_file_manager/models/cross/net/http/http_method.dart';
 
 class AuthServer {
   static const int port = 21821;
 
-  start() async {
+  static start() async {
     final pair = await Key.getSimplePair(generateIfMissing: true);
     final privateKeyBytes = utf8.encode(pair.privateKey);
     // final context = SecurityContext.defaultContext..usePrivateKeyBytes(privateKeyBytes);
@@ -18,8 +19,18 @@ class AuthServer {
     }
   }
 
-  handleConnection(HttpRequest request) async {
-    if (request.method == "GET") {
+  static int lastRequest = 0;
+  static Future<void> handleConnection(HttpRequest request) async {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    if (lastRequest + 1000 < now) {
+      request.response
+        ..statusCode = 418 //? I'm a teapot
+        ..close();
+      return;
+    }
+    lastRequest = now;
+
+    if (request.method == HttpMethod.get.name) {
       request.response
         ..headers.contentType = ContentType.text
         ..write("Hello, world!")
@@ -30,12 +41,5 @@ class AuthServer {
         ..write("Unsupported request: ${request.method}.")
         ..close();
     }
-    // Handle the SSH handshake and authentication process here.
-    // This will typically involve reading and writing data to/from the
-    // clientSocket using the SecureSocket class.
-
-    // Once the client is authenticated, you can execute commands
-    // using the SSH protocol by sending and receiving data over the
-    // clientSocket.
   }
 }

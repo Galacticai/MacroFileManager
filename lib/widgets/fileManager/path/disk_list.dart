@@ -7,7 +7,7 @@ import 'package:external_path/external_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:macro_file_manager/concept/unix/unix_cmd/df.dart';
+import 'package:macro_file_manager/models/unix/unix_cmd/df.dart';
 import 'package:macro_file_manager/modified/disk_space/disk_space.dart' as modified_disk_space;
 import 'package:macro_file_manager/widgets/cross/global_props.dart';
 import 'package:oktoast/oktoast.dart';
