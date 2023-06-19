@@ -57,7 +57,7 @@ dependencies:
   rsa_encrypt: ^2.0.0
   flutter_secure_storage: ^8.0.0
   pointycastle: ^3.7.3
-  ping_discover_network_forked: ^0.0.1
+  window_manager: ^0.3.4
   #disk_space: ^0.2.1 # requires old version of gradle
   #storage_info: ^0.0.1 # requires old gradle version
   #open_app_file: ^4.0.1 # works but not really async

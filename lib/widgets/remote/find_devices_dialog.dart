@@ -26,10 +26,7 @@ class _FindDevicesDialogState extends State<FindDevicesDialog> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(FontAwesomeIcons.arrowLeft),
-          onPressed: () => Navigator.pop(context),
-        ),
+        leading: const BackButton(),
       ),
       body: SingleChildScrollView(
         child: stopped
@@ -46,7 +43,7 @@ class _FindDevicesDialogState extends State<FindDevicesDialog> {
               )
             : StreamBuilder(
                 stream: HttpServerExpress.discover("192.168.0", port: 21821),
-                builder: (BuildContext context, AsyncSnapshot<HttpClientRequest> snapshot) {
+                builder: (BuildContext context, AsyncSnapshot<HttpClientRequest?> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Info.withButtons(
                       "Waiting for devices...",
@@ -61,16 +58,16 @@ class _FindDevicesDialogState extends State<FindDevicesDialog> {
                       ],
                     );
                   }
-                  if (!snapshot.hasError) {
+                  if (snapshot.hasError) {
                     return Info.withButtons(
                       "Something went wrong",
                       details: snapshot.error.toString(),
                       detailsMono: true,
-                      icon: FontAwesomeIcons.faceDizzy,
+                      icon: FontAwesomeIcons.solidFaceDizzy,
                       color: theme.colorScheme.error,
                       buttons: [
-                        IconButton(
-                          // label: const Text("Back"),
+                        TextButton.icon(
+                          label: const Text("Back"),
                           icon: const Icon(FontAwesomeIcons.arrowLeft),
                           onPressed: Navigator.of(context).pop,
                         ),
@@ -89,23 +86,22 @@ class _FindDevicesDialogState extends State<FindDevicesDialog> {
                         TextButton.icon(
                           label: const Text("Home"),
                           icon: const Icon(FontAwesomeIcons.house, size: 18),
-                          onPressed: () {},
+                          onPressed: Navigator.of(context).pop,
                         ),
                       ],
                     );
                   }
-                  if (snapshot.data != null) {
-                    final HttpClientRequest request = snapshot.data!;
-                    final String host = request.headers.host ?? "????";
-                    final int port = request.headers.port ?? 0;
+                  final HttpClientRequest request = snapshot.data!;
+                  final String host = request.headers.host ?? "????";
+                  final int port = request.headers.port ?? 0;
 
-                    print("ADDING: $host:$port");
-                    list.add(ListTile(
-                      leading: const Icon(FontAwesomeIcons.server),
-                      title: Text("$host:$port"),
-                      onTap: () {},
-                    ));
-                  }
+                  print("ADDING: $host:$port");
+                  list.add(ListTile(
+                    leading: const Icon(FontAwesomeIcons.server),
+                    title: Text("$host:$port"),
+                    onTap: () {},
+                  ));
+
                   return ContentList(
                     loading: snapshot.connectionState != ConnectionState.done,
                     child: ListView(shrinkWrap: true, children: list),

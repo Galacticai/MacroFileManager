@@ -21,6 +21,7 @@ class HttpServerExpress {
     if (_server != null) return;
     _server = await HttpServer.bind(host, port);
     await for (HttpRequest request in _server!) {
+      if (_server == null) break;
       _response(request);
     }
   }
@@ -31,39 +32,21 @@ class HttpServerExpress {
     _server = null;
   }
 
-  late int lastRequestTime;
-  Future<void> _response(HttpRequest request) async {
-    if (responses == null || responses!.isEmpty || !responses!.containsKey(request.method)) {
-      request.response
-        ..statusCode = 418 //? I'm a teapot
-        ..close();
-      return;
-    }
-    if (requestThrottling.inMilliseconds > 0) {
-      //? Throttle requests - 1 request/sec
-      final time = DateTime.now().millisecondsSinceEpoch;
-      if (lastRequestTime + requestThrottling.inMilliseconds < time) {
-        request.response
-          ..statusCode = HttpStatus.tooManyRequests
-          ..close();
-        return;
-      }
-      lastRequestTime = time;
-    }
-    responses![HttpMethod.getHttpMethod(request.method)]?.call(request);
-  }
-
   /// Find all hosts on the subnet. Returns a stream of [HttpClientRequest]s.
   /// - This skips failed connections
-  static Stream<HttpClientRequest> discover(
+  static Stream<HttpClientRequest?> discover(
     String subnet, {
     int port = 80,
     Duration timeout = const Duration(seconds: 5),
   }) {
-    assert(port >= 1 && port <= 0xFFFF, "Port ($port) must be between 1 and 65535 (0xFFFF)");
+    final controller = StreamController<HttpClientRequest?>();
+    if (port < 1 || port > 0xFFFF) {
+      controller.addError("Port ($port) must be between 1 and 65535 (0xFFFF)");
+      controller.close();
+      return controller.stream;
+    }
     // TODO: validate subnet
 
-    final controller = StreamController<HttpClientRequest>();
     final futures = <Future>[];
     for (int i = 1; i <= 0xFF; ++i) {
       final host = '$subnet.$i';
@@ -86,6 +69,28 @@ class HttpServerExpress {
     // Future.wait(futures).timeout(timeout);
 
     return controller.stream;
+  }
+
+  late int lastRequestTime;
+  Future<void> _response(HttpRequest request) async {
+    if (responses == null || responses!.isEmpty || !responses!.containsKey(request.method)) {
+      request.response
+        ..statusCode = 418 //? I'm a teapot
+        ..close();
+      return;
+    }
+    if (requestThrottling.inMilliseconds > 0) {
+      //? Throttle requests - 1 request/sec
+      final time = DateTime.now().millisecondsSinceEpoch;
+      if (lastRequestTime + requestThrottling.inMilliseconds < time) {
+        request.response
+          ..statusCode = HttpStatus.tooManyRequests
+          ..close();
+        return;
+      }
+      lastRequestTime = time;
+    }
+    responses![HttpMethod.getHttpMethod(request.method)]?.call(request);
   }
 
   /// Ping a host. Returns a [HttpClientRequest] if successful, otherwise null.

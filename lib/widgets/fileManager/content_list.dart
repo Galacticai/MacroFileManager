@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:macro_file_manager/widgets/cross/global_props.dart';
 
 class ContentList extends StatelessWidget {
+  final Widget child;
+  final bool loading;
+  final double? progress;
+  final double loadingBarHeight;
+  final double cornerRadius;
+
   const ContentList({
     required this.child,
     this.loading = false,
+    this.progress,
     this.loadingBarHeight = GlobalProps.radius,
     this.cornerRadius = GlobalProps.radius,
     super.key,
   });
-
-  final Widget child;
-  final bool loading;
-  final double loadingBarHeight;
-  final double cornerRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class ContentList extends StatelessWidget {
                   curve: Curves.easeOut,
                   child: SizedBox(
                     height: loading ? loadingBarHeight : loadingBarHeight * .5,
-                    child: const LinearProgressIndicator(),
+                    child: LinearProgressIndicator(value: progress),
                   ),
                 ),
               ),
