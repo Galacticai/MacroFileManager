@@ -6,6 +6,8 @@ list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
   flutter_acrylic
   flutter_secure_storage_linux
+  screen_retriever
+  window_manager
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
